@@ -1,6 +1,7 @@
 # mano_design
 
-video link --> https://drive.google.com/drive/folders/1JUSh3n5JnoyaFCqWe_uzckezDVRd4LNK?usp=sharing 
+video link --> https://www.dropbox.com/scl/fi/7pkdhp0gljg4ls9zhs8sr/Project10.mp4?rlkey=1xnbdspvqb3cex02rmxj57stg&st=wox5awkn&dl=0
+
 # Mano Basic Computer Implementation in Verilog & Proteus - Complete Documentation
 
 ## Project Overview
