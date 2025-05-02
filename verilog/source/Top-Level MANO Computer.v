@@ -1,12 +1,9 @@
 module MANO_Computer(
     input clk,
     input reset,
-    input ps2_clk,
-    input ps2_data,
     output [7:0] segment,
     output [3:0] digit_select
 );
-    // Internal wires
     wire [11:0] pc_out;
     wire [15:0] mem_data_out;
     wire [15:0] ir_out;
@@ -17,11 +14,7 @@ module MANO_Computer(
     wire zero_flag;
     wire sign_flag;
     wire e_reg;
-    wire keyboard_interrupt;
-    wire [15:0] keyboard_data;
-    wire keyboard_data_ready;
-    
-    // Control signals
+
     wire pc_load;
     wire pc_inc;
     wire ir_load;
@@ -35,7 +28,6 @@ module MANO_Computer(
     wire io_write;
     wire [11:0] address_bus;
 
-    // Instantiate all modules
     ProgramCounter pc(.*);
     Memory memory(.*);
     InstructionRegister ir(.*);
@@ -43,14 +35,12 @@ module MANO_Computer(
     DataRegister dr(.*);
     ExtendedAccumulator e(.*);
     ALU alu(.*);
-    KeyboardInterface keyboard(.*);
     DisplayOutput display(.*);
     ControlUnit cu(.*);
-    
-    // Additional connections
+
     assign ir.instruction_in = mem_data_out;
-    assign ac.data_in = io_read && keyboard_data_ready ? keyboard_data : alu_out;
-    assign ac.load = ac_load || (io_read && keyboard_data_ready);
+    assign ac.data_in = alu_out;
+    assign ac.load = ac_load;
     assign dr.data_in = mem_data_out;
     assign e.data_in = alu_e_out;
     assign alu.a = ac_out;
@@ -58,11 +48,9 @@ module MANO_Computer(
     assign alu.e_in = e_reg;
     assign memory.address = address_bus;
     assign memory.data_in = ac_out;
-    assign keyboard.io_read = io_read;
     assign display.io_write = io_write;
     assign display.data_in = ac_out;
     assign cu.ir = ir_out;
     assign cu.zero_flag = zero_flag;
     assign cu.sign_flag = sign_flag;
-    assign cu.keyboard_interrupt = keyboard_interrupt;
 endmodule
