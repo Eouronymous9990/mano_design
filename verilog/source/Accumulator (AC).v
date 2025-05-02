@@ -12,3 +12,5 @@ module Accumulator(
             data_out <= data_in;
     end
 endmodule
+
+//
